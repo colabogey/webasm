@@ -30,6 +30,13 @@ SRCS    = $(wildcard $(SRC_DIR)/*.cpp)
 OBJS    = $(addprefix $(BUILD_DIR)/, $(notdir $(SRCS:.cpp=.o)))
 IDEPS    = $(wildcard $(INC_DIR)/*.h)
 
+MODULARIZE	=#	-sMODULARIZE
+METHODS_EXPORTED	=	-sEXPORTED_RUNTIME_METHODS=[ccall,cwrap]
+FUNCTIONS_EXPORTED	=	-sEXPORTED_FUNCTIONS=[_main,_myFunction]
+NO_EXIT_RUNTIME	=	-sNO_EXIT_RUNTIME=1
+SHELL_FILE	=	--shell-file html_template/shell_minimal.html
+EXTENSION	=	.html
+
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp $(IDEPS)
 	$(EMCC) -c $(CFLAGS) $(CPPFLAGS) -o $@ $<
 
@@ -37,7 +44,8 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp $(IDEPS)
 all:    $(BIN_DIR)/$(MYAPPNAME)
 
 $(BIN_DIR)/$(MYAPPNAME):	$(OBJS)
-	$(EMCC) $(LDFLAGS) -o $(BIN_DIR)/$(MYAPPNAME).html $(OBJS) $(LIBFLAGS)
+	$(EMCC) $(LDFLAGS) -o $(BIN_DIR)/$(MYAPPNAME)$(EXTENSION) $(OBJS) $(LIBFLAGS) \
+	$(SHELL_FILE) $(NO_EXIT_RUNTIME) $(FUNCTIONS_EXPORTED) $(METHODS_EXPORTED) $(MODULARIZE)
 
 .PHONY: coverage
 coverage:
