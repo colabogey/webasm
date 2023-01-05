@@ -30,7 +30,7 @@ SRCS    = $(wildcard $(SRC_DIR)/*.cpp)
 OBJS    = $(addprefix $(BUILD_DIR)/, $(notdir $(SRCS:.cpp=.o)))
 IDEPS    = $(wildcard $(INC_DIR)/*.h)
 
-MODULARIZE	=#	-sMODULARIZE
+MODULARIZE	=	-sMODULARIZE
 METHODS_EXPORTED	=	-sEXPORTED_RUNTIME_METHODS=[ccall,cwrap]
 FUNCTIONS_EXPORTED	=	-sEXPORTED_FUNCTIONS=[_main,_myFunction]
 NO_EXIT_RUNTIME	=	-sNO_EXIT_RUNTIME=1
