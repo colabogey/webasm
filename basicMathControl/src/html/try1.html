@@ -3,11 +3,11 @@
     <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>try1</title>
-    <script src="basicMathControl.js"></script>
+    <title>basicMath</title>
+    <script src="../bin/basicMathControl.js"></script>
     <body>
         <script>
-            function run_app1() {
+            function run_add() {
                 var result = Module.ccall(
                     "basicMathAdd", 
                     "number", 
@@ -29,9 +29,9 @@
         <input type="number" id="a">
         <input type="number" id="b">
         <p>
-            what up 
+            Basic Math 
         </p>
-        <button onclick="run_app1()">Trigger</button>
+        <button onclick="run_add()">Add</button>
 
     </body>
 </head>
