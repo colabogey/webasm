@@ -1,3 +1,0 @@
-INCDIRS = -I../include
-
-

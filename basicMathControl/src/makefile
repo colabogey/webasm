@@ -14,15 +14,15 @@ CFLAGS = $(CFLAGSTOUSE) \
 	$(INCDIRS) $(DEFS)
 
 LDFLAGS = 
-LIBFLAGS = -lpthread -lc -lrt \
-			-L$(PROJECT_BIN_DIR)
+LIBFLAGS =	-lbasicMath \
+			-lpthread -lc -lrt -L$(PROJECT_BIN_DIR)
 
 SRC_DIR     = ./
 BUILD_DIR   = ./build
 BIN_DIR     = ./bin
 INC_DIR     = ../include
 
-MYAPPNAME = app1
+MYAPPNAME = basicMathControl
 
 include includes.mk
 
