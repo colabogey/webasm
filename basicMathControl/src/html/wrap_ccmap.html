@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en-us">
+    <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>basicMath</title>
+    <script src="../bin/basicMathControl.js"></script>
+    <body>
+        <script>
+
+            var run_add_wrap = Module.cwrap(
+                    "basicMathAdd", 
+                    "number", 
+                    ["number", "number"]
+                );
+
+                var run_subtract_wrap = Module.cwrap(
+                    "basicMathSubtract", 
+                    "number", 
+                    ["number", "number"]
+                );
+
+                var run_multiply_wrap = Module.cwrap(
+                    "basicMathMultiply", 
+                    "number", 
+                    ["number", "number"]
+                );
+
+                var run_divide_wrap = Module.cwrap(
+                    "basicMathDivide", 
+                    "number", 
+                    ["number", "number"]
+                );
+
+                function run_add() {
+                    var a = document.querySelector("#a").value;
+                    var b = document.querySelector("#b").value;                    
+                    result = run_add_wrap(a, b);
+                    console.log(result);                  
+                }
+
+                function run_subtract() {
+                    var a = document.querySelector("#a").value;
+                    var b = document.querySelector("#b").value;                    
+                    result = run_subtract_wrap(a, b);
+                    console.log(result);                  
+                }
+
+                function run_multiply() {
+                    var a = document.querySelector("#a").value;
+                    var b = document.querySelector("#b").value;                    
+                    result = run_multiply_wrap(a, b);
+                    console.log(result);                  
+                }
+
+                function run_divide() {
+                    var a = document.querySelector("#a").value;
+                    var b = document.querySelector("#b").value;                    
+                    result = run_divide_wrap(a, b);
+                    console.log(result);                  
+                }
+
+        </script>
+        <input type="number" id="a">
+        <input type="number" id="b">
+        <p>
+            Basic Math 
+        </p>
+        <button onclick="run_add()">Add</button>
+        <button onclick="run_subtract()">Subtract</button>
+        <button onclick="run_multiply()">Multiply</button>
+        <button onclick="run_divide()">Divide</button>
+    </body>
+</head>
+</html>
