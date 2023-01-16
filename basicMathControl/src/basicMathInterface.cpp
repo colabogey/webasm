@@ -28,4 +28,3 @@ int basicMathDivide(int a, int b) {
     return bmp->divide(a, b);
 }
 
-
