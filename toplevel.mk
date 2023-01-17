@@ -28,7 +28,8 @@ EMCC = emcc
 
 DEFS =  -DLINUX=1
 CFLAGSDEBUG = -std=c++2a -O0 -g3 -fmessage-length=0 -MMD -MP -fprofile-arcs -ftest-coverage
-CFLAGSRELEASE = -std=c++2a -O0 -g3 -fmessage-length=0 -MMD -MP
+#CFLAGSRELEASE = -std=c++2a -O0 -g3 -fmessage-length=0 -MMD -MP
+CFLAGSRELEASE = -std=c++2a -O0 -g3 -MMD -MP
 
 $(info DEBUG="$(DEBUG)")
 ifeq (TRUE, $(DEBUG))

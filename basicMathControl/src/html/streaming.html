@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en-us">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="application/wasm; charset=utf-8">
+    <title>basicMath</title>
+
+<body>
+
+    <script>
+
+        const importObj = {
+            env: {
+                abort(_msg, _file, line, column) {
+                    console.error("abort called:" + line + ":" + column)
+                }
+            }
+        };
+
+        function run_add() {
+            WebAssembly.instantiateStreaming(
+                fetch("../bin/basicMathControl.wasm"), importObj
+            ).then(results => {
+                var a = document.querySelector("#a").value;
+                var b = document.querySelector("#b").value;
+                var sum = results.instance.exports.basicMathAdd(a, b);
+                document.querySelector("#ret").innerHTML +=
+                    `${a} ${b} => #{sum} >br/>`;
+            });
+        }
+        
+    </script>
+
+    <input type="number" id="a">
+    <input type="number" id="b">
+    <p id="ret"></p>
+    <p>
+        Basic Math
+    </p>
+    <button onclick="run_add()">Add</button>
+    <button onclick="run_subtract()">Subtract</button>
+    <button onclick="run_multiply()">Multiply</button>
+    <button onclick="run_divide()">Divide</button>
+    <p id="ret"></p>
+
+
+</body>
+
+
+</head>
+
+</html>

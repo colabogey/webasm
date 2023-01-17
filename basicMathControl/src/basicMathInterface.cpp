@@ -1,6 +1,5 @@
 #include <externDef.h>
 #include <basicMath.h>
-#include <stdio.h>
 #include <functional>
 #include <emscripten/emscripten.h>
 
