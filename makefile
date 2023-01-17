@@ -1,4 +1,4 @@
-SUBDIRS := app1
+SUBDIRS := basicMath basicMathControl
 
 release:
 	@for dir in $(SUBDIRS); do \

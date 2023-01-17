@@ -1,4 +1,4 @@
-SUBDIRS = src test
+SUBDIRS = src
 
 release:
 	@for dir in $(SUBDIRS); do \
