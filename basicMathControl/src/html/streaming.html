@@ -1,15 +1,32 @@
 <!doctype html>
 <html lang="en-us">
 
+<!--
+    <meta http-equiv="Content-Type" content="application/wasm" charset="utf-8">    
+-->
+
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="application/wasm; charset=utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">  
     <title>basicMath</title>
+    <script src="../bin/basicMathControl.js"></script>
 
 <body>
 
     <script>
+        const api = {
+            addNums: Module.cwrap("basicMathAdd", "number", ["number", "number"])
+        };
 
+        function run_add() {
+            var a = document.querySelector("#a").value;
+            var b = document.querySelector("#b").value;
+            var result = api.addNums(a, b);
+            console.log(result);
+        }
+
+    </script>
+<!--
+    <script>
         const importObj = {
             env: {
                 abort(_msg, _file, line, column) {
@@ -29,8 +46,9 @@
                     `${a} ${b} => #{sum} >br/>`;
             });
         }
-        
-    </script>
+
+    </script>      
+--> 
 
     <input type="number" id="a">
     <input type="number" id="b">
