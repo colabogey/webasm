@@ -2,37 +2,41 @@
 <html lang="en-us">
 
 <!--
-    <meta http-equiv="Content-Type" content="application/wasm" charset="utf-8">    
+  
 -->
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">  
+
     <title>basicMath</title>
     <script src="../bin/basicMathControl.js"></script>
-
+    <meta http-equiv="Content-Type" content="application/wasm" charset="utf-8">  
 <body>
 
-    <script>
-        const api = {
-            addNums: Module.cwrap("basicMathAdd", "number", ["number", "number"])
+<script>
+
+        const wasi_snapshot_preview1_def = {
+            fd_close() { return(0) },
+            fd_write(a, b) { return 0},
+            fd_seek(a, b, c) { return 0 }
         };
 
-        function run_add() {
-            var a = document.querySelector("#a").value;
-            var b = document.querySelector("#b").value;
-            var result = api.addNums(a, b);
-            console.log(result);
-        }
-
-    </script>
-<!--
-    <script>
+        const wasi_snapshot_preview1 = Object.create(wasi_snapshot_preview1_def);   
+    
         const importObj = {
+      
             env: {
                 abort(_msg, _file, line, column) {
                     console.error("abort called:" + line + ":" + column)
+                },
+                emscripten_resize_heap(size){
+                    return;
                 }
-            }
+            },
+            wasi_snapshot_preview1: {
+                fd_close() { return 0 },
+                fd_write(a, b) { return 0 },
+                fd_seek(a, b, c) { return 0 }
+            }           
         };
 
         function run_add() {
@@ -43,12 +47,52 @@
                 var b = document.querySelector("#b").value;
                 var sum = results.instance.exports.basicMathAdd(a, b);
                 document.querySelector("#ret").innerHTML +=
-                    `${a} ${b} => #{sum} >br/>`;
+                    `${a} + ${b} => ${sum} <br/>`;
+                console.log(sum);
+            });
+        }
+
+        function run_subtract() {
+            WebAssembly.instantiateStreaming(
+                fetch("../bin/basicMathControl.wasm"), importObj
+            ).then(results => {
+                var a = document.querySelector("#a").value;
+                var b = document.querySelector("#b").value;
+                var sum = results.instance.exports.basicMathSubtract(a, b);
+                document.querySelector("#ret").innerHTML +=
+                    `${a} - ${b} => ${sum} <br/>`;
+                console.log(sum);
+            });
+        }
+
+        function run_multiply() {
+            WebAssembly.instantiateStreaming(
+                fetch("../bin/basicMathControl.wasm"), importObj
+            ).then(results => {
+                var a = document.querySelector("#a").value;
+                var b = document.querySelector("#b").value;
+                var sum = results.instance.exports.basicMathMultiply(a, b);
+                document.querySelector("#ret").innerHTML +=
+                    `${a} * ${b} => ${sum} <br/>`;
+                console.log(sum);
+            });
+        }
+
+        function run_divide() {
+            WebAssembly.instantiateStreaming(
+                fetch("../bin/basicMathControl.wasm"), importObj
+            ).then(results => {
+                var a = document.querySelector("#a").value;
+                var b = document.querySelector("#b").value;
+                var sum = results.instance.exports.basicMathDivide(a, b);
+                document.querySelector("#ret").innerHTML +=
+                    `${a} / ${b} => ${sum} <br/>`;
+                console.log(sum);
             });
         }
 
     </script>      
---> 
+
 
     <input type="number" id="a">
     <input type="number" id="b">
@@ -60,7 +104,7 @@
     <button onclick="run_subtract()">Subtract</button>
     <button onclick="run_multiply()">Multiply</button>
     <button onclick="run_divide()">Divide</button>
-    <p id="ret"></p>
+    <p id="sum"></p>
 
 
 </body>

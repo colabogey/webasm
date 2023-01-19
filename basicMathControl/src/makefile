@@ -13,9 +13,8 @@ CFLAGS = $(CFLAGSTOUSE) \
 	-Woverloaded-virtual -Wwrite-strings -Wno-unused \
 	$(INCDIRS) $(DEFS)
 
-LDFLAGS = 
 LIBFLAGS =	-lbasicMath \
-			-lpthread -lc -lrt -L$(PROJECT_BIN_DIR)
+			-L$(PROJECT_BIN_DIR)
 
 SRC_DIR     = ./
 BUILD_DIR   = ./build
@@ -36,13 +35,13 @@ MODULARIZE	=#	-sMODULARIZE
 METHODS_EXPORTED	=	-s EXPORTED_RUNTIME_METHODS=[ccall,cwrap]
 #FUNCTIONS_EXPORTED	=	-sEXPORTED_FUNCTIONS=[_main,_myFunction]
 FUNCTIONS_EXPORTED	=#	-sEXPORTED_FUNCTIONS=[_myFunction]
-NO_EXIT_RUNTIME	=	-s NO_EXIT_RUNTIME=1
-EXIT_RUNTIME	=	-s EXIT_RUNTIME=1
+NO_EXIT_RUNTIME	=#	-s NO_EXIT_RUNTIME=1
+EXIT_RUNTIME	=#	-s EXIT_RUNTIME=1
 SHELL_FILE	=#	--shell-file html_template/shell_minimal.html
 EXTENSION	=	.js
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp $(IDEPS)
-	$(EMCC) -c $(CFLAGS) $(CPPFLAGS) -o $@ $<
+	$(EMCC) -c $(CFLAGS) $(CPPFLAGS) -o $@ $< 
 
 .PHONY: all
 all:    $(BIN_DIR)/$(MYAPPNAME)
