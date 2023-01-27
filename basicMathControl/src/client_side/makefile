@@ -21,6 +21,9 @@ BUILD_DIR   = ./build
 BIN_DIR     = ./bin
 INC_DIR     = ../../include
 
+$(shell mkdir -p $(BIN_DIR))
+$(shell mkdir -p $(BUILD_DIR))
+
 MYAPPNAME = basicMathControl
 
 include ../includes.mk

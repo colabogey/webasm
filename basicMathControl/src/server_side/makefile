@@ -22,6 +22,9 @@ BIN_DIR     = ./bin
 JS_DIR     = ./js
 INC_DIR     = ../../include
 
+$(shell mkdir -p $(BIN_DIR))
+$(shell mkdir -p $(BUILD_DIR))
+
 MYAPPNAME = basicMathControl
 
 include ../includes.mk
