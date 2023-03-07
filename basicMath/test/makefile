@@ -14,7 +14,8 @@ CFLAGS = $(CFLAGSTOUSE) \
 	$(INCDIRS) $(DEFS)
 
 LDFLAGS = 
-LIBFLAGS = -lgtest -lgmock -lpthread -lc -lgcov -lrt
+LIBFLAGS = -lgtest -lgmock -lpthread -lc -lgcov -lrt \
+			-L/usr/local/lib -L/usr/local/lib64
 
 SRC_DIR     = ./
 LIB_SRC_DIR     = ../src
@@ -22,6 +23,7 @@ BUILD_DIR   = ./build
 BIN_DIR     = ./bin
 INC_DIR		= ../include
 
+$(shell mkdir -p $(PROJECT_BIN_DIR))
 $(shell mkdir -p $(BIN_DIR))
 $(shell mkdir -p $(BUILD_DIR))
 
@@ -58,11 +60,13 @@ test:
 .PHONY: testclean
 testclean:
 	rm -f $(BUILD_DIR)/*.gcda $(BUILD_DIR)/*.gcno $(BIN_DIR)/$(MYTESTAPP)
+	rm -f coverage.info
 	rm -rf coverage_out
 
 .PHONY: clean
 clean:
 	rm -f $(BUILD_DIR)/* $(BIN_DIR)/*
+	rm -f coverage.info
 	rm -rf coverage_out
 
 .PHONY: format
